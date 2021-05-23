@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const contacts = require('../../model/index');
+const validate = require('./validation');
 
 router.get('/', async (req, res, next) => {
   try {
@@ -27,13 +28,32 @@ router.get('/:contactId', async (req, res, next) => {
         .status(404)
         .json({ status: 'error', code: 404, message: 'Not found' });
     }
-  } catch (error) {
-    next(error);
+  } catch (err) {
+    next(err);
   }
 });
 
 router.post('/', async (req, res, next) => {
-  res.json({ message: 'template message' });
+  try {
+    const contact = await contacts.addContact(req.body);
+
+    if (contact) {
+      return res.status(201).json({
+        status: 'success',
+        code: 201,
+        message: 'Contact was created',
+        data: { contact },
+      });
+    } else {
+      return res.status(400).json({
+        status: 'error',
+        code: 400,
+        message: 'Contact already exists',
+      });
+    }
+  } catch (err) {
+    next(err);
+  }
 });
 
 router.delete('/:contactId', async (req, res, next) => {
