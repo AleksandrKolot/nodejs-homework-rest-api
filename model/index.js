@@ -1,6 +1,5 @@
 const fs = require('fs/promises');
 const path = require('path');
-const { nextTick } = require('process');
 const { v4: uuidv4 } = require('uuid');
 
 const contactsPath = path.join(__dirname, '.', 'contacts.json');

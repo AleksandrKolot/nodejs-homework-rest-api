@@ -33,7 +33,7 @@ router.get('/:contactId', async (req, res, next) => {
   }
 });
 
-router.post('/', async (req, res, next) => {
+router.post('/', validate.addContact, async (req, res, next) => {
   try {
     const contact = await contacts.addContact(req.body);
 
@@ -77,7 +77,7 @@ router.delete('/:contactId', async (req, res, next) => {
   }
 });
 
-router.patch('/:contactId', async (req, res, next) => {
+router.patch('/:contactId', validate.updateContact, async (req, res, next) => {
   try {
     const contact = await contacts.updateContact(
       req.params.contactId,
