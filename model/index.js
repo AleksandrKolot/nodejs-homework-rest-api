@@ -74,7 +74,29 @@ const addContact = async ({ name, email, phone }) => {
   }
 };
 
-const removeContact = async contactId => {};
+const removeContact = async contactId => {
+  try {
+    const contacts = await getContacts();
+    const contact = contacts.find(({ id }) => id.toString() === contactId);
+    const newContacts = contacts.filter(
+      ({ id }) => id.toString() !== contactId,
+    );
+
+    if (!contact) {
+      console.error(`There is no contact with id ${contactId}.`);
+      return;
+    }
+    await fs.writeFile(
+      contactsPath,
+      JSON.stringify(newContacts, null, 2),
+      'utf8',
+    );
+    console.log(`Contact with id ${contactId} was deleted.`);
+    return contact;
+  } catch (err) {
+    console.error(err.message);
+  }
+};
 
 const updateContact = async (contactId, body) => {};
 
