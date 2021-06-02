@@ -1,18 +1,15 @@
-const express = require('express');
-const router = express.Router();
-const contacts = require('../../model/index');
-const validate = require('./validation');
+const contacts = require('../model/index');
 
-router.get('/', async (req, res, next) => {
+const get = async (req, res, next) => {
   try {
     const allContacts = await contacts.listContacts();
     return res.json({ status: 'success', code: 200, data: { allContacts } });
   } catch (err) {
     next(err);
   }
-});
+};
 
-router.get('/:contactId', async (req, res, next) => {
+const getById = async (req, res, next) => {
   try {
     const contact = await contacts.getContactById(req.params.contactId);
 
@@ -31,9 +28,9 @@ router.get('/:contactId', async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-});
+};
 
-router.post('/', validate.addContact, async (req, res, next) => {
+const create = async (req, res, next) => {
   try {
     const contact = await contacts.addContact(req.body);
 
@@ -54,9 +51,9 @@ router.post('/', validate.addContact, async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-});
+};
 
-router.delete('/:contactId', async (req, res, next) => {
+const remove = async (req, res, next) => {
   try {
     const contact = await contacts.removeContact(req.params.contactId);
 
@@ -75,9 +72,9 @@ router.delete('/:contactId', async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-});
+};
 
-router.patch('/:contactId', validate.updateContact, async (req, res, next) => {
+const update = async (req, res, next) => {
   try {
     const contact = await contacts.updateContact(
       req.params.contactId,
@@ -103,6 +100,12 @@ router.patch('/:contactId', validate.updateContact, async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-});
+};
 
-module.exports = router;
+module.exports = {
+  get,
+  getById,
+  create,
+  remove,
+  update,
+};
