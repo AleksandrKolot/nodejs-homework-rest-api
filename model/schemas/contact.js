@@ -20,10 +20,9 @@ const contactSchema = new Schema(
       required: [true, 'Set phone for contact'],
       unique: true,
     },
-    subscription: {
-      type: String,
-      enum: ['free', 'pro', 'premium'],
-      required: [true, 'Set subscription for contact'],
+    favorite: {
+      type: Boolean,
+      default: false,
     },
     password: {
       type: String,
