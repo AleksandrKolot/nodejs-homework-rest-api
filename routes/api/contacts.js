@@ -8,5 +8,6 @@ router
   .get('/:contactId', contactsController.getById)
   .delete('/:contactId', contactsController.remove)
   .patch('/:contactId', validate.updateContact, contactsController.update);
+  .patch('/:contactId/favorite', validate.updateContact, contactsController.updateStatus)
 
 module.exprots = router;
