@@ -101,6 +101,35 @@ const update = async (req, res, next) => {
     next(err);
   }
 };
+const updateStatus = async (req, res, next) => {
+  try {
+    const contact = await contacts.updateStatusContact(
+      req.params.contactId,
+      req.body,
+    );
+    if (JSON.stringify(req.body) === '{}') {
+      return res.status(400).json({
+        status: 'error',
+        code: 400,
+        message: 'Missing fields favorite',
+      });
+    }
+    if (contact) {
+      return res.json({
+        status: 'success',
+        code: 200,
+        message: 'Contact was updated',
+        data: { contact },
+      });
+    } else {
+      return res
+        .status(404)
+        .json({ status: 'error', code: 404, message: 'Not found' });
+    }
+  } catch (err) {
+    next(err);
+  }
+};
 
 module.exports = {
   get,
@@ -108,4 +137,5 @@ module.exports = {
   create,
   remove,
   update,
+  updateStatus,
 };

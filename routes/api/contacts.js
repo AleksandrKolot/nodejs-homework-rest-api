@@ -7,7 +7,11 @@ const validate = require('./validation');
 router
   .get('/:contactId', contactsController.getById)
   .delete('/:contactId', contactsController.remove)
-  .patch('/:contactId', validate.updateContact, contactsController.update);
-  .patch('/:contactId/favorite', validate.updateContact, contactsController.updateStatus)
+  .patch('/:contactId', validate.updateContact, contactsController.update)
+  .patch(
+    '/:contactId/favorite',
+    validate.updateStatusContact,
+    contactsController.updateStatus,
+  );
 
 module.exprots = router;

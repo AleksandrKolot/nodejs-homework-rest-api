@@ -79,7 +79,7 @@ const updateStatusContact = async (contactId, body) => {
     const result = await Contact.findByIdAndUpdate(
       { _id: contactId },
       { ...body },
-      { favorite: true },
+      { new: true },
     );
 
     if (!result) {
