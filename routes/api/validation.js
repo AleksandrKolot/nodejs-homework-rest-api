@@ -21,6 +21,7 @@ const schemaUpdateContact = Joi.object({
     .optional(),
   favorite: Joi.boolean().default(false).optional(),
 });
+
 const schemaUpdateStatusContact = Joi.object({
   name: Joi.string().min(2).max(50).optional(),
   email: Joi.string().email().optional(),
