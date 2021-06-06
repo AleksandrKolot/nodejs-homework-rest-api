@@ -24,16 +24,6 @@ const contactSchema = new Schema(
       type: Boolean,
       default: false,
     },
-    password: {
-      type: String,
-      minLength: 6,
-      maxLength: 50,
-      required: [true, 'Set password for contact'],
-    },
-    token: {
-      type: String,
-      default: '',
-    },
   },
   {
     versionKey: false,
